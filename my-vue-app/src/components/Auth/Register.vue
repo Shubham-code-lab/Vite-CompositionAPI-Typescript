@@ -1,6 +1,5 @@
 <template>
   <div class="h-full flex items-center">
-    {{userEmail}}, {{userPassword}}
     <div class="flex flex-col justify-center items-center w-full md:flex-row-reverse md:h-full">
       <div class="md:w-1/2 md:bg-gray-100 h-full flex flex-row justify-center items-center">
         <div class="rounded-full w-12 h-12 md:h-60 md:w-60 bg-violet-500"></div>
@@ -13,6 +12,16 @@
           Welcome back! Please enter your details.
         </p>
         <div class="w-full">
+          <div class="flex flex-col w-full px-3 py-2">
+            <label for="name" class="py-1">Name</label>
+            <input
+              class="rounded-md h-9 placeholder:p-2 border-2"
+              type="text"
+              id="name"
+              placeholder="Enter your name"
+              v-model="userName"
+            />
+          </div>
           <div class="flex flex-col w-full px-3 py-2">
             <label for="email" class="py-1">Email</label>
             <input
@@ -33,6 +42,16 @@
               v-model="userPassword"
             />
           </div>
+          <div class="flex flex-col w-full px-3 py-2">
+            <label for="confirmPassword" class="py-1">Confirm Password</label>
+            <input
+              class="rounded-md h-9 placeholder:p-2 border-2"
+              type="password"
+              id="confirmPassword"
+              placeholder="Re-Enter Password"
+              v-model="userConfrimPassword"
+            />
+          </div>
           <div class="flex flex-row justify-between w-full p-3">
             <div class="flex flex-row">
               <!-- not working -->
@@ -46,7 +65,7 @@
           <!-- Sign in button -->
           <div class="w-full p-3">
             <button class="bg-violet-500 text-white w-full rounded-md h-10" @click="signUp">
-              Sign in
+              Sign up
             </button>
           </div>
           <!-- google sign -->
@@ -56,7 +75,7 @@
             >
               <!-- google icon -->
               <i></i>
-              <span>Sign in with Google</span>
+              <span>Sign up with Google</span>
             </button>
           </div>
         </div>
@@ -72,16 +91,23 @@
 
 <script >
 import {ref} from 'vue';
-import {useCounterStore} from '../../pinia';
+import {useCounterStore} from '../../pinia.ts';
 export default{
   setup(){
     const userEmail = ref('');
     const userPassword = ref('');
-
+    const userConfrimPassword = ref('');
+    const userName = ref('');
+    
+    // 
+    const store = useCounterStore();
     function signUp(){
-      useCounterStore.increment;
-      useCounterStore.doubleCount;
-      console.log(useCounterStore.count);
+      // console.log(store);
+      // store.increment();
+      // console.log(store.doubleCount);
+      // console.log(store.count);
+      
+      store.signUp(userEmail.value, userPassword.value);
     }
     return{
       userEmail,
