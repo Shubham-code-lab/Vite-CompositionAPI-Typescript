@@ -91,7 +91,7 @@
 
 <script >
 import {ref} from 'vue';
-import {useCounterStore} from '../../pinia.ts';
+import {userAuthStore} from '../../pinia.ts';
 export default{
   setup(){
     const userEmail = ref('');
@@ -100,14 +100,18 @@ export default{
     const userName = ref('');
     
     // 
-    const store = useCounterStore();
+    const store = userAuthStore();
     function signUp(){
       // console.log(store);
       // store.increment();
       // console.log(store.doubleCount);
       // console.log(store.count);
-      
-      store.signUp(userEmail.value, userPassword.value);
+      const userDetail = {
+        name:userName.value,
+        email: userEmail.value,
+        password: userPassword.value
+      };
+      store.signUp(userDetail);
     }
     return{
       userEmail,
