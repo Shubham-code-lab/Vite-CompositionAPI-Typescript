@@ -1,6 +1,5 @@
 <template>
   <div class="h-full flex items-center">
-    {{userEmail}}, {{userPassword}}
     <div class="flex flex-col justify-center items-center w-full md:flex-row-reverse md:h-full">
       <div class="md:w-1/2 md:bg-gray-100 h-full flex flex-row justify-center items-center">
         <div class="rounded-full w-12 h-12 md:h-60 md:w-60 bg-violet-500"></div>
@@ -33,6 +32,7 @@
               v-model="userPassword"
             />
           </div>
+          </div>
           <div class="flex flex-row justify-between w-full p-3">
             <div class="flex flex-row">
               <!-- not working -->
@@ -45,7 +45,7 @@
           </div>
           <!-- Sign in button -->
           <div class="w-full p-3">
-            <button class="bg-violet-500 text-white w-full rounded-md h-10">
+            <button class="bg-violet-500 text-white w-full rounded-md h-10" @click="signIn">
               Sign in
             </button>
           </div>
@@ -56,33 +56,47 @@
             >
               <!-- google icon -->
               <i></i>
-              <span>Sign in with Google</span>
+              <span>Sign up with Google</span>
             </button>
           </div>
         </div>
         <div>
           <span class="text-gray-500">Don't have an account?</span>
-          <router-link :to="{ name: 'register' }">Sign up</router-link>
+          <!-- <router-link :to="{ name: 'login' }">Sign up</router-link> -->
         </div>
       </div>
     </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script >
-// import {ref} from 'vue';
-// export default{
-//   setup(){
-//     const userEmail = ref('');
-//     const userPassword = ref('');
+import {ref} from 'vue';
+import {userAuthStore} from '../../pinia.ts';
+export default{
+  setup(){
+    const userEmail = ref('');
+    const userPassword = ref('');
 
-//     return{
-//       userEmail,
-//       userPassword
-//     }
-//   }
-// }
+    const store = userAuthStore();
+    function signIn(){
+      // console.log(store);
+      // store.increment();
+      // console.log(store.doubleCount);
+      // console.log(store.count);
+      const userDetail = {
+        email: userEmail.value,
+        password: userPassword.value
+      };
+      store.signIn(userDetail);
+    }
+    return{
+      userEmail,
+      userPassword,
+      signIn
+    }
+  }
+}
 </script>
 
 <style>
