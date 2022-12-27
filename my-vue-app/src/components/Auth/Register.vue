@@ -116,6 +116,8 @@ export default{
     return{
       userEmail,
       userPassword,
+      userName,
+      userConfrimPassword,
       signUp
     }
   }
