@@ -6,6 +6,8 @@ export const userAuthStore = defineStore('authentication', {
       getUserDetail:(state)=>{
         return {
             userId: state.userId,
+            email: state.email,
+
         }
       }
     },
@@ -27,7 +29,7 @@ export const userAuthStore = defineStore('authentication', {
          const responseData = await response.json();
          if(!response.ok){
             console.log(responseData);
-            const error = new Error(responseData.message || 'Failed to authenticate');
+            const error = new Error(responseData.error.message || 'Failed to authenticate');
             throw error;
          }
    
